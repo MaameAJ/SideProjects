@@ -1,0 +1,125 @@
+﻿<Window x:Class="CreditCardSweeper.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <Style TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        </Style>
+    </Window.Resources>
+    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Height="23" HorizontalAlignment="Stretch" Name="MainMenu" VerticalAlignment="Top">
+            <MenuItem Name="SettingsMI" Header="_Settings" Click="SettingsMI_Click"/>
+        </Menu>
+        <TabControl Grid.Row="1">
+            <TabItem Header="Scan">
+                <DockPanel Height="288"  Name="DP1" VerticalAlignment="Top">
+                    <Grid DockPanel.Dock="Top" HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="1" Content="Server:" Height="28" HorizontalAlignment="Left" Name="label1" VerticalAlignment="Top" />
+                        <TextBox Grid.Row="0" Grid.Column="2" Height="23" HorizontalAlignment="Left" Name="serverTxt" VerticalAlignment="Top" MinWidth="120" />
+                        <Label Grid.Row="1" Grid.Column="1" Content="Database:" Height="28" HorizontalAlignment="Left" Name="label2" VerticalAlignment="Top" />
+                        <TextBox Grid.Row="1" Grid.Column="2" Height="23" HorizontalAlignment="Left" Name="databaseTxt" VerticalAlignment="Top" MinWidth="120" />
+                    </Grid>
+                    <Grid Grid.Row="1" HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                        <CheckBox Grid.Row="0" Content="Save Logs to System" Height="16" HorizontalAlignment="Left" Name="SaveLogsChk" VerticalAlignment="Top" />
+                        <CheckBox Grid.Row="1" Content="Mask Data" Height="16" HorizontalAlignment="Left"  Name="MaskDataChk" VerticalAlignment="Top" />
+                        <!--<CheckBox Grid.Row="2" Content="Send Emails" Height="16" HorizontalAlignment="Left" Margin="25,149,0,0" Name="SendEmailsChk" VerticalAlignment="Top" />-->
+                    </Grid>
+                    <Button Grid.Row="3" HorizontalAlignment="Right" Content="New Scan" Height="23" Name="NewScanBTN" Width="75" Click="NewScanBTN_Click" />
+            </Grid>
+                    <Grid DockPanel.Dock="Bottom">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ListView Grid.Row="0" Name="ScanList" VerticalAlignment="Stretch">
+                <ListView.Resources>
+                    <Style x:Key="ProcessStyle" TargetType="{x:Type TextBlock}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Status}" Value="Error">
+                                <Setter Property="Foreground" Value="Red" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Status}" Value="Complete">
+                                <Setter Property="Foreground" Value="Green" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                    <DataTemplate x:Key="ServerTemplate">
+                        <TextBlock Text="{Binding Path=Server}" Style="{StaticResource ResourceKey=ProcessStyle}"/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="DatabaseTemplate">
+                        <TextBlock Text="{Binding Path=Database}" HorizontalAlignment="Stretch" Style="{StaticResource ResourceKey=ProcessStyle}"/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="TableTemplate">
+                        <TextBlock Text="{Binding Path=Table}" HorizontalAlignment="Stretch" Style="{StaticResource ResourceKey=ProcessStyle}"/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="ColumnTemplate">
+                        <TextBlock Text="{Binding Path=Column}" HorizontalAlignment="Stretch" Style="{StaticResource ResourceKey=ProcessStyle}"/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="HitCountTemplate">
+                        <TextBlock Text="{Binding Path=CCHits}" Style="{StaticResource ResourceKey=ProcessStyle}"/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="MaskedCountTemplate">
+                        <TextBlock Text="{Binding Path=CCMasked}" IsEnabled="{Binding Path=CCScan.IsMaskingData}" Style="{StaticResource ResourceKey=ProcessStyle}"/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="MessageTemplate">
+                        <TextBlock Text="{Binding Path=Message}" HorizontalAlignment="Stretch" Style="{StaticResource ResourceKey=ProcessStyle}"/>
+                    </DataTemplate>
+                </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="Auto" Header="Server" CellTemplate="{StaticResource ServerTemplate}" />
+                        <GridViewColumn Width="Auto" Header="Database" CellTemplate="{StaticResource DatabaseTemplate}" />
+                        <GridViewColumn Width="Auto" Header="Table" CellTemplate="{StaticResource TableTemplate}" />
+                        <GridViewColumn Width="Auto" Header="Column" CellTemplate="{StaticResource ColumnTemplate}" />
+                        <GridViewColumn Width="Auto" Header="CC Hits" CellTemplate="{StaticResource HitCountTemplate}" />
+                        <GridViewColumn Width="Auto" Header="Mask Count" CellTemplate="{StaticResource MaskedCountTemplate}" />
+                        <GridViewColumn Width="Auto" Header="Message" CellTemplate="{StaticResource MessageTemplate}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+                <Button Grid.Row="1" HorizontalAlignment="Right" Content="Clear Completed" Height="23" Name="ClearBTN" Width="100" Click="ClearBTN_Click" />
+            </Grid>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="Logs">
+                <DockPanel>
+                    <Grid DockPanel.Dock="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ComboBox Grid.Column="0" Name="FilesCMB" HorizontalAlignment="Stretch" Margin="5" SelectionChanged="FilesCMB_SelectionChanged"/>
+                        <Button Grid.Column="1" Name="BrowseBtn" Content="Browse..." Height="Auto" Width="Auto" Margin="5" Click="BrowseBtn_Click"/> 
+                    </Grid>
+                    <FlowDocumentScrollViewer Name="LogsDocViewer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsToolBarVisible="True" />
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

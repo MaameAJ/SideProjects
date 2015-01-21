@@ -1,0 +1,41 @@
+﻿^589297\d{13}$														#TD ACCESS																
+^4506\d{11}$														#CIBC CONVENIENCE 
+^4519\d{12}$														#RBC CLIENT
+^4536\d{12}$														#SCOTIABANK
+^5019\d{12}$														#DANKORT
+^500\d{13}$															#BMO ABM
+^636\d{13}(\d{3})?$													#INTERPAYMENT
+^63[7-9]\d{13}$														#INSTAPAYMENT
+^56\d{14}$															#HSBC CANADA
+^6(?:011|22[12]|5[0-9]{2})(\s|-)?\d{4}(\s|-)?\d{4}(\s|-)?\d{4}$		#DISCOVERY
+^35[28-89]\d{12}$													#JCB
+^62\d{14}(\d{3})?$													#CHINA UNIONPAY
+^3(?:0[0-5]|[6-9][0-9])\d{11}$										#DINERS CLUB
+^5[45]\d{14}$														#DINERS US & CAN
+^3[47]\d{2}(\s|-)?\d{6}(\s|-)?\d{5}$								#AMERICAN EXPRESS
+^4\d{3}(\s|-)?\d{4}(\s|-)?\d{4}(\s|-)?\d{4}$						#VISA
+^5[1-5]\d{2}(\s|-)?\d{4}(\s|-)?\d{4}(\s|-)?\d{4}$					#MASTERCARD
+
+589297\d{13}														#TD ACCESS																
+4506\d{11}															#CIBC CONVENIENCE 
+4519\d{12}															#RBC CLIENT
+4536\d{12}															#SCOTIABANK
+5019\d{12}															#DANKORT
+500\d{13}															#BMO ABM
+636\d{13}(\d{3})?													#INTERPAYMENT
+63[7-9]\d{13}														#INSTAPAYMENT
+56\d{14}															#HSBC CANADA
+6(?:011|22[12]|5[0-9]{2})(\s|-)?\d{4}(\s|-)?\d{4}(\s|-)?\d{4}		#DISCOVERY
+35[28-89]\d{12}														#JCB
+62\d{14}(\d{3})?													#CHINA UNIONPAY
+3(?:0[0-5]|[6-9][0-9])\d{11}										#DINERS CLUB
+5[45]\d{14}															#DINERS US & CAN
+3[47]\d{2}(\s|-)?\d{6}(\s|-)?\d{5}									#AMERICAN EXPRESS
+4\d{3}(\s|-)?\d{4}(\s|-)?\d{4}(\s|-)?\d{4}							#VISA
+5[1-5]\d{2}(\s|-)?\d{4}(\s|-)?\d{4}(\s|-)?\d{4}						#MASTERCARD
+
+
+(?<!\d)(?:4[\d]{15}|4[\d]{12})(?!\d)								#PROD VISA
+(?<!\d)(?:5[1-5][\d]{14})(?!\d)										#PROD MASTERCARD
+(?<!\d)6((?:011|5[\d]{2}|64[4-9])[\d]{12}|(?:622(?:12[6-9]|92[0-5]|(?!12|92)[\d]{3})[\d]{9}))(?!\d)	#PROD DISCOVER
+(?<!\d)(?:3[47][\d]{13})(?!\d)										#PROD AMEX
